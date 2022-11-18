@@ -1,22 +1,39 @@
 const itemArray = ['rock', 'paper', 'scissors'];
-let scorePC = 0
-let scorePlayer = 0
+const buttons = document.querySelectorAll('button');
+const results = document.querySelector('#roundResults');
+const playerScore = document.querySelector('#playerScore'); 
+const pcScore = document.querySelector('#pcScore');  
+
+let scorePC = 0;
+let scorePlayer = 0;
+
+buttons.forEach(button => {button.addEventListener('click', runGame) })
+
+function runGame(e) {
+
+    pcScore.textContent = `PC Score: ${scorePC}`; 
+    playerScore.textContent = `Player Score: ${scorePlayer}`;
+
+    let playerSelection= (e.target.id);
+
+    while ((scorePlayer < 5) && (scorePC < 5)) {
+        playRound(playerSelection, getComputerChoice());
+        if ((scorePlayer >= 5) || (scorePC >= 5)) {break}
+        return
+    }
+
+    if (scorePC > scorePlayer) {
+        roundResults.textContent = 'PC WINS!';
+    } else if (scorePC < scorePlayer) {
+        roundResults.textContent = 'PLAYER WINS!';
+    } else {
+        roundResults.textContent = 'DRAW!';
+    }
+
+}
 
 function getComputerChoice() {
     return itemArray[Math.floor(Math.random()*itemArray.length)];
-}
-
-function getPlayerChoise() {
-    let playerSelection = prompt("Enter Value: ").toLowerCase();
-
-    console.log(playerSelection)
-
-    if (playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissors") {
-        return playerSelection;
-    } else {
-        console.log("Please Enter a Correct Value");
-        getPlayerChoise();
-    }
 }
 
 function playRound(playerSelection, computerSelection){
@@ -28,45 +45,25 @@ function playRound(playerSelection, computerSelection){
         return
     }
 
-    if (computerSelection === 'rock') {
-    } else if (playerSelection === 'paper') {
-        return scorePlayer++
-    } else if (playerSelection === 'scissors') {
-        return scorePC++ 
+    else if (computerSelection === 'rock') {
+        } if (playerSelection === 'paper') {
+            return playerScore.textContent = `Player Score: ${++scorePlayer}`;
+        } else if (playerSelection === 'scissors') {
+            return pcScore.textContent = `PC Score: ${++scorePC}`;
     }
 
-    if (computerSelection === 'paper') {
-    } else if (playerSelection === 'scissors') {
-        return scorePlayer++
-    } else if (playerSelection === 'rock') {
-        return scorePC++
+    else if (computerSelection === 'paper') {
+        } if (playerSelection === 'scissors') {
+            return playerScore.textContent = `Player Score: ${++scorePlayer}`;
+        } else if (playerSelection === 'rock') {
+            return pcScore.textContent = `PC Score: ${++scorePC}`;
     }
 
-    if (computerSelection === 'scissors') {
-    } else if (playerSelection === 'rock') {
-        return scorePlayer++
-    } else if (playerSelection === 'paper') {
-        return scorePC++
+    else if (computerSelection === 'scissors') {
+        } if (playerSelection === 'rock') {
+            return playerScore.textContent = `Player Score: ${++scorePlayer}`;
+        } else if (playerSelection === 'paper') {
+            return pcScore.textContent = `PC Score: ${++scorePC}`;
     }
 
 }
-
-function game() {
-
-    for (let round = 0; round < 3; round++) {
-        playRound(getPlayerChoise(), getComputerChoice());
-        console.log("Player Score: " + scorePlayer)
-        console.log("PC Score: " + scorePC)
-    }
-
-    if (scorePC > scorePlayer) {
-        console.log('PC WINS!')
-    } else if (scorePC < scorePlayer) {
-        console.log('PLAYER WINS!')
-    } else {
-        console.log('DRAW!')
-    }
-    
-}
-
-console.log(game())
